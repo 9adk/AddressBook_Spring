@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.addressbookapp.dto.AddressBookDTO;
 import com.capgemini.addressbookapp.dto.PersonDTO;
+import com.capgemini.addressbookapp.dto.ResponseDTO;
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
@@ -23,31 +24,38 @@ public class AddressBookController {
 	List<PersonDTO> list = addBook.personList;
 	
 	@GetMapping("/get/{id}")
-	public ResponseEntity<String> getAddressBookDataById(@PathVariable("id") int id) {
-		return new ResponseEntity<String>("The person data for id: "+id+"is"+list.get(id-1),HttpStatus.OK);
+	public ResponseEntity<ResponseDTO> getAddressBookDataById(@PathVariable("id") int id) {
+		ResponseDTO response = new ResponseDTO("The person data for id: "+id+"is",list.get(id-1));
+		
+		return new ResponseEntity<ResponseDTO>(response,HttpStatus.OK);
 	}
 	
 	@GetMapping("/get")
-	public ResponseEntity<String> getAddressBookData() {
-		return new ResponseEntity<String>("The AddressBook contains"+list,HttpStatus.OK);
+	public ResponseEntity<ResponseDTO> getAddressBookData() {
+		ResponseDTO response = new ResponseDTO("The AddressBook contains",list);
+		return new ResponseEntity<ResponseDTO>(response,HttpStatus.OK);
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<String> newAddressBook(@RequestBody PersonDTO person){
+	public ResponseEntity<ResponseDTO> newAddressBook(@RequestBody PersonDTO person){
 		list.add(person);
-		return new ResponseEntity<String>("Added the person in addressbook",HttpStatus.OK);
+		ResponseDTO response = new ResponseDTO("Added the person in addressbook",person);
+		
+		return new ResponseEntity<ResponseDTO>(response,HttpStatus.OK);
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> updateAddressBook(@PathVariable("id") int id,@RequestBody PersonDTO person){
+	public ResponseEntity<ResponseDTO> updateAddressBook(@PathVariable("id") int id,@RequestBody PersonDTO person){
 		list.set(id, person);
-		return new ResponseEntity<String>("Updated the person data in addressbook",HttpStatus.OK);
+		ResponseDTO response = new ResponseDTO("Updated the person data in addressbook",person);
+		return new ResponseEntity<ResponseDTO>(response,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteAddressBookById(@PathVariable("id") int id){
+	public ResponseEntity<ResponseDTO> deleteAddressBookById(@PathVariable("id") int id){
 		list.remove(id-1);
-		return new ResponseEntity<String>("Deleted the data of id: "+id+"from list is: "+list,HttpStatus.OK);
+		ResponseDTO response = new ResponseDTO("Deleted the data of id: ",id);
+		return new ResponseEntity<ResponseDTO>(response,HttpStatus.OK);
 	}
 
 }
