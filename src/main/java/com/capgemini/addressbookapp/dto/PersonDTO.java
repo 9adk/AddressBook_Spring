@@ -1,5 +1,9 @@
 package com.capgemini.addressbookapp.dto;
+
+import javax.validation.constraints.Pattern;
+
 public class PersonDTO {
+ 	@Pattern(regexp = "^[A-Z][a-zA-z\\s]{2,}$", message = "Person name invalid")
 	public String pName;
 	public String contact;
 	public String address;

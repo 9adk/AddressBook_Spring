@@ -3,6 +3,8 @@ package com.capgemini.addressbookapp.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.addressbookapp.dto.PersonDTO;
 import com.capgemini.addressbookapp.dto.ResponseDTO;
+import com.capgemini.addressbookapp.exception.AddressBookException;
 import com.capgemini.addressbookapp.model.Person;
 import com.capgemini.addressbookapp.service.IAddressBookService;
 @RestController
@@ -25,7 +28,7 @@ public class AddressBookController {
 	@Autowired
 	IAddressBookService addressBookService;
 	@GetMapping("/get/{id}")
-	public ResponseEntity<ResponseDTO> getAddressBookDataById(@PathVariable("id") int id) {
+	public ResponseEntity<ResponseDTO> getAddressBookDataById(@PathVariable("id") int id) throws AddressBookException {
 		
 		Person perObj = addressBookService.getPersonById(id);
 		ResponseDTO response = new ResponseDTO("The person data for id: "+id+"is",perObj);
@@ -40,14 +43,14 @@ public class AddressBookController {
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<ResponseDTO> newAddressBook(@RequestBody PersonDTO person){
+	public ResponseEntity<ResponseDTO> newAddressBook(@Valid @RequestBody PersonDTO person){
 		Person perObj = addressBookService.addPerson(person);
 		ResponseDTO response = new ResponseDTO("Added the person in addressbook",perObj);
 		return new ResponseEntity<ResponseDTO>(response,HttpStatus.OK);
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<ResponseDTO> updateAddressBook(@PathVariable("id") int id,@RequestBody PersonDTO person){
+	public ResponseEntity<ResponseDTO> updateAddressBook(@PathVariable("id") int id,@RequestBody PersonDTO person) throws AddressBookException{
 		Person perObj = addressBookService.updatePerson(id,person);
 		ResponseDTO response = new ResponseDTO("Updated the person data in addressbook",perObj);
 		return new ResponseEntity<ResponseDTO>(response,HttpStatus.OK);

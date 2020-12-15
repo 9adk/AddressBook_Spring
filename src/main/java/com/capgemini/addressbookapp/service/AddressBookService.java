@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.addressbookapp.dto.PersonDTO;
+import com.capgemini.addressbookapp.exception.AddressBookException;
 import com.capgemini.addressbookapp.model.Person;
 
 @Service
@@ -23,12 +24,11 @@ public class AddressBookService implements IAddressBookService {
 		return list;
 	}
 	@Override
-	public Person getPersonById(int id) {
-		Person perObj = list.get(id-1);
-		return perObj;
+	public Person getPersonById(int id) throws AddressBookException {
+		return list.stream().filter(person -> person.getId() == id).findFirst().orElseThrow(() -> new AddressBookException("Person not found"));
 	}
 	@Override
-	public Person updatePerson(int id, PersonDTO person) {
+	public Person updatePerson(int id, PersonDTO person) throws AddressBookException {
 		Person perObj = this.getPersonById(id);
 		perObj.setPName(person.pName);
 		perObj.setContact(person.contact);
