@@ -5,14 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.capgemini.addressbookapp.dto.AddressBookDTO;
 import com.capgemini.addressbookapp.dto.PersonDTO;
 import com.capgemini.addressbookapp.model.Person;
 
 @Service
 public class AddressBookService implements IAddressBookService {
-
-	AddressBookDTO addBook = new AddressBookDTO();
 	List<Person> list = new ArrayList<>();
 	
 	@Override
@@ -33,8 +30,8 @@ public class AddressBookService implements IAddressBookService {
 	@Override
 	public Person updatePerson(int id, PersonDTO person) {
 		Person perObj = this.getPersonById(id);
-		perObj.setpName(person.pName);
-		perObj.setpNo(person.pNo);
+		perObj.setPName(person.pName);
+		perObj.setContact(person.contact);
 		perObj.setAddress(person.address);
 		perObj.setCity(person.city);
 		perObj.setState(person.state);
