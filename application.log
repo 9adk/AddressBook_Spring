@@ -1,0 +1,5 @@
+2020-12-15 23:00:30.013  INFO 8980 --- [restartedMain] c.c.a.AddressBookAppApplication          : Starting AddressBookAppApplication using Java 15 on DESKTOP-0JD1TPG with PID 8980 (C:\Users\adity\spring-workspace\AddressBookApp\target\classes started by adity in C:\Users\adity\spring-workspace\AddressBookApp)
+2020-12-15 23:00:30.017 DEBUG 8980 --- [restartedMain] c.c.a.AddressBookAppApplication          : Running with Spring Boot v2.4.1, Spring v5.3.2
+2020-12-15 23:00:30.017  INFO 8980 --- [restartedMain] c.c.a.AddressBookAppApplication          : No active profile set, falling back to default profiles: default
+2020-12-15 23:00:31.593  INFO 8980 --- [restartedMain] c.c.a.AddressBookAppApplication          : Started AddressBookAppApplication in 2.03 seconds (JVM running for 2.97)
+2020-12-15 23:00:31.597  INFO 8980 --- [restartedMain] c.c.a.AddressBookAppApplication          : AddressBook app Started
